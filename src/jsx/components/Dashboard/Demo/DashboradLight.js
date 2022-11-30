@@ -199,7 +199,7 @@ const DashboradLight = () => {
 						<div className="card">
 							<div className="card-header border-0 flex-wrap pb-0 select-btn">
 								<div className="mb-3">
-									<h4 className="fs-20 text-black">Market Overview</h4>
+									<h4 className="fs-20 text-black">Market Overview2</h4>
 									<p className="mb-0 fs-12 text-black">Lorem ipsum dolor sit amet, consectetur</p>
 								</div>
 								<div className="d-flex flex-wrap mb-2">
@@ -539,7 +539,7 @@ const DashboradLight = () => {
 												</div>
 												<div className="text-white">
 													<p className="fs-12 mb-1 op6">CARD HOLDER</p>
-													<span>Marquezz Silalahi</span>
+													<span>Julien Lampin</span>
 												</div>
 											</div>
 										</div>

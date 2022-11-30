@@ -70,7 +70,7 @@ const Wallet = () => {
 													</div>
 													<div className="mb-4">
 														<p className="mb-2">Card Holder</p>
-														<h4 className="text-black">Marquezz Silalahi</h4>
+														<h4 className="text-black">Julien Lampin</h4>
 													</div>
 													<div>
 														<p className="mb-2">Card Theme</p>

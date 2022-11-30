@@ -47,6 +47,8 @@ const Setting = () => {
     containerPosition_,
 	setDemoTheme
   } = useContext(ThemeContext);
+  if(true)
+	  return (<div></div>);
   return (
 	<>
 		<div className={`sidebar-right ${settingToggle ? "show" : ""}`}>

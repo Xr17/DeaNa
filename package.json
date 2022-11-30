@@ -1,7 +1,7 @@
 {
-  "name": "zenix",
+  "name": "DeaNa",
   "version": "0.1.0",
-  "homepage": "https://zenix.dexignzone.com/react/demo",
+  "homepage": "https://Xr17.github.io/deana/",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.13.1",
@@ -66,12 +66,15 @@
     "sweetalert2": "^10.10.4",
     "swiper": "^8.0.7",
     "web-vitals": "^2.1.4",
+    "yarn": "^1.22.19",
     "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "sass": "node-sass --watch src/scss/main.scss src/css/style.css --source-map src/css/style.css.map"
   },

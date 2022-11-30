@@ -540,7 +540,7 @@ const Home = () => {
 												</div>
 												<div className="text-white">
 													<p className="fs-12 mb-1 op6">CARD HOLDER</p>
-													<span>Marquezz Silalahi</span>
+													<span>Julien Lampin</span>
 												</div>
 											</div>
 										</div>

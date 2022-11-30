@@ -5,7 +5,7 @@ import { loadingToggleAction,loginAction,
 } from '../../store/actions/AuthActions';
 
 //
-import logo from '../../images/logo.png'
+import logo from '../../icons/brand-logo.png'
 import textlogo from '../../images/logo-text.png'
 import login from "../../images/bg-login2.png";
 import loginbg from "../../images/bg-login.jpg";
@@ -42,12 +42,12 @@ function Login (props) {
             <div className="login-wrapper">
                 <div className="login-aside-left" style={{backgroundImage:"url("+ login +")"}}>
                     <Link to="/dashboard" className="login-logo">
-                        <img src={logo} alt="" />
-                        <img src={textlogo} alt="" className="ml-3"/>
+                        <img style={{width:"50%"}}class="brand-logo" src={logo} alt="" />
                       </Link>
                     <div className="login-description">
-                        <h2 className="text-black  mb-2">Check the Status</h2>
-                        <p className="fs-12 text-dark">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+                        <h2 className="text-black  mb-2">Welcome to <b>DeaNa</b>, the crypto wallet <b>for all</b></h2>
+                        <p className="fs-15 text-dark">Connect web3 dapps, learn on recommendations, through courses and tips</p>
+                        <p className="fs-15 text-dark">Buy and sell digital assets quickly, easily</p>
                         <ul className="social-icons mt-4">
                             <li><Link to={"#"}><i className="fa fa-facebook"></i></Link></li>
                             <li><Link to={"#"}><i className="fa fa-twitter"></i></Link></li>
@@ -68,8 +68,8 @@ function Login (props) {
                             <div className="col-xl-12">
                               <div className="auth-form-1">
                                 <div className="mb-4">
-                                    <h3 className="text-primary mb-1">Welcome to Zenix</h3>
-                                    <p className="">Sign in by entering information below</p>
+                                    <h3 className="text-primary mb-1">Welcome to DeaNa</h3>
+                                    <p className="">Are you new here?</p>
                                 </div>
                                 {props.errorMessage && (
                                     <div className='bg-red-300 text-red-900 border border-red-900 p-1 my-2'>
@@ -81,60 +81,30 @@ function Login (props) {
                                         {props.successMessage}
                                     </div>
                                 )}
+
+                                  <Link   className="btn btn-success btn-block" to="./page-register">
+                                      Create my wallet
+                                  </Link>
+                                    <hr width={"50%"}/>
                                 <form onSubmit={onLogin}>
-                                    <div className="form-group mb-3">
-                                        <label className="mb-2 ">
-                                          <strong>Email</strong>
-                                        </label>
-                                        <input type="email" className="form-control"
-                                          value={email}
-                                           onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                      {errors.email && <div className="text-danger fs-12">{errors.email}</div>}
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <label className="mb-2 "><strong>Password</strong></label>
-                                        <input
-                                          type="password"
-                                          className="form-control"
-                                          value={password}
-                                            onChange={(e) =>
-                                                setPassword(e.target.value)
-                                            }
-                                        />
-                                        {errors.password && <div className="text-danger fs-12">{errors.password}</div>}
-                                    </div>
-                                  <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                                    <div className="form-group">
-                                      <div className="custom-control custom-checkbox ml-1 ">
-                                        <input
-                                          type="checkbox"
-                                          className="custom-control-input mr-2"
-                                          id="basic_checkbox_1"
-                                        />
-                                        <label
-                                          className="custom-control-label"
-                                          htmlFor="basic_checkbox_1"
-                                        >
-                                          Remember my preference
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
+
                                   <div className="text-center">
-                                    <button
-                                      type="submit"
-                                      className="btn btn-primary btn-block"
-                                    >
-                                      Sign In
-                                    </button>
+
+
+                                      <button
+                                          type="submit"
+                                          className="btn btn-info btn-block"
+                                      >
+                                         I already have one
+                                      </button>
+
                                   </div>
                                 </form>
-                                <div className="new-account mt-2">
+                                <div className="new-account mt-2 warn">
                                   <p className="">
-                                    Don't have an account?{" "}
+
                                     <Link className="text-primary" to="./page-register">
-                                      Sign up
+                                        HELP ! I HAVE LOST MY SECRET !
                                     </Link>
                                   </p>
                                 </div>

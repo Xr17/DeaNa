@@ -96,7 +96,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowUp /></td>
 										<td>#12415346563475</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table1} alt="" className="rounded-circle mr-2 width40 height40"/><span>Samuel</span></div></td>
 										<td className="wspace-no"><CoinIcon4 /></td>
 										<td><span className="text-black font-w600">+$5,553</span></td>
@@ -107,7 +107,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowDown /></td>
 										<td>#987654123564892</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table2} alt="" className="rounded-circle mr-2 width40 height40"/><span>Cindy</span></div></td>
 										<td className="wspace-no"><CoinIcon2 /></td>
 										<td><span className="text-black font-w700">-$12,768</span></td>
@@ -118,8 +118,8 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowDown /></td>
 										<td>#124153465125511</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
-										<td><div className="d-flex align-items-center"><img src={table3} alt="" className="rounded-circle mr-2 width40 height40"/><span>Marquezz</span></div></td>
+										<td>Julien</td>
+										<td><div className="d-flex align-items-center"><img src={table3} alt="" className="rounded-circle mr-2 width40 height40"/><span>Julien</span></div></td>
 										<td className="wspace-no"><CoinIcon1 /></td>
 										<td> <span className="text-black font-w700">-$455</span></td>
 										<td><p className="mb-0"> Lorem ipsum dol</p></td>
@@ -129,7 +129,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowUp /></td>
 										<td>#987654123564892</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table1} alt="" className="rounded-circle mr-2 width40 height40" /> <span>David</span></div></td>
 										<td className="wspace-no"> <CoinIcon3 /></td>
 										<td><span className="text-black font-w700">+$5,553</span></td>
@@ -151,7 +151,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowUp /></td>
 										<td>#987654123564892</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table2} alt="" className="rounded-circle mr-2 width40 height40"/><span>Samuel</span></div></td>
 										<td className="wspace-no"><CoinIcon2 /></td>
 										<td><span className="text-black font-w700">-$12,768</span></td>
@@ -162,7 +162,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowDown /></td>
 										<td>#124153465125511</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table3} alt="" className="rounded-circle mr-2 width40 height40"/><span>Samuel</span></div></td>
 										<td className="wspace-no"> <CoinIcon1 /></td>
 										<td><span className="text-black font-w700">-$455</span></td>
@@ -173,7 +173,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowDown /></td>
 										<td>#987654123564892</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table3} alt="" className="rounded-circle mr-2 width40 height40"/><span>David</span></div></td>
 										<td className="wspace-no"> <CoinIcon4 /></td>
 										<td><span className="text-black font-w700">-$455</span></td>
@@ -185,7 +185,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowUp /></td>
 										<td>#12415346563475</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table1} alt="" className="rounded-circle mr-2 width40 height40"/><span>Lucyana</span></div></td>
 										<td className="wspace-no"><CoinIcon4 /></td>
 										<td><span className="text-black font-w700">+$5,553</span></td>
@@ -196,7 +196,7 @@ const Transactions = () => {
 										<td className="pr-0 sorting_1"><ArrowDown /></td>
 										<td>#987654123564892</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table2} alt="" className="rounded-circle mr-2 width40 height40"/><span>Cindy</span></div></td>
 										<td className="wspace-no"><CoinIcon3 /></td>
 										<td><span className="text-black font-w700">-$12,768</span></td>
@@ -207,7 +207,7 @@ const Transactions = () => {
 										<td><ArrowUp /></td>
 										<td>#12415346563475</td>
 										<td>2/5/2020 06:24 AM</td>
-										<td>Marquezz</td>
+										<td>Julien</td>
 										<td><div className="d-flex align-items-center"><img src={table1} alt="" className="rounded-circle mr-2 width40 height40"/><span>Lucyana</span></div></td>
 										<td className="wspace-no"><CoinIcon4 /></td>
 										<td><span className="text-black font-w700">+$5,553</span></td>

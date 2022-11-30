@@ -281,7 +281,7 @@ const Portofolio = () =>{
 											<img src={profile} alt="" className="rounded" />
 											<Link to={"#"}><i className="fa fa-pencil" aria-hidden="true"></i></Link>
 										</div>
-										<h4 className="mt-3 font-w600 text-black mb-0 name-text">Marquezz Silalahi</h4>
+										<h4 className="mt-3 font-w600 text-black mb-0 name-text">Julien Lampin</h4>
 										<span>@thomasdox</span>
 										<p className="mb-0 mt-2">Join on 24 March 2017</p>
 									</div>

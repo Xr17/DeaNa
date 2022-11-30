@@ -249,10 +249,7 @@ const ThemeContextProvider = (props) => {
     window.addEventListener("resize", resizeWindow);
 	
 	window.addEventListener("load", function(){
-		var theme =  getUrlParams('theme');
-		if(theme !== undefined){
-			//setDemoTheme(theme,'ltr');
-		}
+        setDemoTheme(5,'ltr');
 	}, false);
 	
     return () => window.removeEventListener("resize", resizeWindow);
