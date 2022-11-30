@@ -305,7 +305,11 @@ const Header = ({ onNote }) => {
                   role="button"
                   data-toggle="dropdown"
                 >
-
+                  <img src={profile} width={20} alt="" />
+                  <div className="header-info">
+                    <span>Julien Lampin</span>
+                    <small>Super Admin</small>
+                  </div>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right" className="mt-2">

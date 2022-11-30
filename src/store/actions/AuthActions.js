@@ -53,7 +53,7 @@ export function loginAction(email, password, history) {
                     history,
                 );
                 dispatch(loginConfirmedAction(response.data));
-				history.push('/wallet');
+				history.push('/my-wallets');
             })
             .catch((error) => {
 				//console.log(error);
