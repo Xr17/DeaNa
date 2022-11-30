@@ -178,24 +178,19 @@ class SideBar extends Component {
 			</div>
           <MM className="metismenu" id="menu">
 			<li className="nav-label first">Wallet</li>
-            <li className={`${dashBoard.includes(path) ? "mm-active" : ""}`}>
-				<Link className="has-arrow ai-icon" to="#" >
-					<i className="flaticon-144-layout"></i>
-					<span className="nav-text">Wallet</span>
-				</Link>
-				<ul >
-                    <li><Link className={`${path === "" ? "" : ""}`} to="/my-wallets">Wallet</Link></li>
+
+            <li><Link className={`${path === "" ? "" : ""}`} to="/my-wallets">			<i className="flaticon-092-money"></i><span className="nav-text">Wallet</span></Link></li>
                   {
                     //	<li><Link className={`${path === "dashboard" ? "mm-dashboard" : ""}`} to="/">Dashboard </Link></li>}
                   }
-					<li><Link className={`${path === "transactions" ? "mm-active" : ""}`} to="/transactions"> Transactions</Link></li>
+            <li><Link className={`${path === "transactions" ? "mm-active" : ""}`} to="/transactions"> 			<i className="flaticon-008-credit-card"></i><span className="nav-text">Transactions</span></Link></li>
                   {
                     //<li><Link className={`${path === "coin-details" ? "mm-active" : ""}`} to="/coin-details"> Coin Details</Link> </li>
                   }
-			  		<li><Link className={`${path === "portofolio" ? "mm-active" : ""}`} to="/portofolio">Portofolio</Link></li>
-					<li><Link className={`${path === "market-capital" ? "mm-active" : ""}`} to="/market-capital">Market Capital</Link></li>
-				</ul>
-            </li>
+            <li><Link className={`${path === "portofolio" ? "mm-active" : ""}`} to="/portofolio">			<i className="flaticon-063-picture"></i><span className="nav-text">Portofolio</span></Link></li>
+            <li><Link className={`${path === "market-capital" ? "mm-active" : ""}`} to="/market-capital">			<i className="flaticon-091-shopping-cart"></i><span className="nav-text">Market Capital</span></Link></li>
+
+
 
             {}
 			<li className="nav-label">Learning</li>
