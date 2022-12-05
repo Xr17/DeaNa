@@ -246,11 +246,11 @@ const ThemeContextProvider = (props) => {
 		? body.setAttribute("data-sidebar-style", "overlay")
 		: body.setAttribute("data-sidebar-style", "full");
 	};
-    window.addEventListener("resize", resizeWindow);
+  //window.addEventListener("resize", resizeWindow);
 	
-	window.addEventListener("load", function(){
+	/*window.addEventListener("load", function(){
         setDemoTheme(5,'ltr');
-	}, false);
+	}, false);*/
 	
     return () => window.removeEventListener("resize", resizeWindow);
   }, []);

@@ -226,7 +226,7 @@ const Portofolio = () =>{
 						<div className="col-xl-4 col-xxl-12">
 							<div className="row">
 								<div className="col-xl-12 m-t25">
-									<div className="card">
+									{/*<div className="card">
 										<div className="card-header border-0">
 											<h4 className="mb-0 fs-20">Current Graph</h4>
 											<Dropdown className="custom-dropdown mb-0 tbl-orders-style">
@@ -248,7 +248,7 @@ const Portofolio = () =>{
 												<CurrentBarGraph />
 											</div>
 										</div>
-									</div>
+									</div>*/}
 								</div>
 							</div>
 						</div>
@@ -258,7 +258,7 @@ const Portofolio = () =>{
 				<div className="col-xl-3 col-xxl-4">
 					<div className="row">
 						<div className="col-xl-12 col-lg-6 col-sm-6">
-							<div className="card">
+							{/*<div className="card">
 								<div className="card-header border-0">
 									<h4 className="mb-0 text-black fs-20">My Profile</h4>
 									<Dropdown className="custom-dropdown mb-0 tbl-orders-style">
@@ -291,7 +291,7 @@ const Portofolio = () =>{
 										<li><Link to={"#"}><i className="fa fa-facebook"></i></Link></li>
 									</ul>
 								</div>
-							</div>
+							</div>*/}
 						</div>	
 						<div className="col-xl-12 col-lg-6 col-sm-6">
 							<div className="card">

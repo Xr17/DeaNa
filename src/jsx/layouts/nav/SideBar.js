@@ -179,60 +179,75 @@ class SideBar extends Component {
           <MM className="metismenu" id="menu">
 			<li className="nav-label first">Wallet</li>
 
-            <li><Link className={`${path === "" ? "" : ""}`} to="/my-wallets">			<i className="flaticon-092-money"></i><span className="nav-text">Wallet</span></Link></li>
+            <li>
+              <Link className={`${path === "" ? "" : ""}`} to="/portofolio">{/*to="/my-wallets">*/}
+                <i className="flaticon-092-money"></i><span className="nav-text">Wallet</span></Link></li>
                   {
                     //	<li><Link className={`${path === "dashboard" ? "mm-dashboard" : ""}`} to="/">Dashboard </Link></li>}
                   }
-            <li><Link className={`${path === "transactions" ? "mm-active" : ""}`} to="/transactions"> 			<i className="flaticon-008-credit-card"></i><span className="nav-text">Transactions</span></Link></li>
+            <li>
+              <Link className={`${path === "transactions" ? "mm-active" : ""}`} to="/transactions"> 			
+                <i className="flaticon-008-credit-card"></i><span className="nav-text">Activities</span></Link></li>
                   {
                     //<li><Link className={`${path === "coin-details" ? "mm-active" : ""}`} to="/coin-details"> Coin Details</Link> </li>
                   }
-            <li><Link className={`${path === "portofolio" ? "mm-active" : ""}`} to="/portofolio">			<i className="flaticon-063-picture"></i><span className="nav-text">Portofolio</span></Link></li>
-            <li><Link className={`${path === "market-capital" ? "mm-active" : ""}`} to="/market-capital">			<i className="flaticon-091-shopping-cart"></i><span className="nav-text">Market Capital</span></Link></li>
-
-
-
-            {}
-			<li className="nav-label">Learning</li>
+            {/*<li>
+              <Link className={`${path === "portofolio" ? "mm-active" : ""}`} to="/portofolio">
+                <i className="flaticon-063-picture"></i><span className="nav-text">Portofolio</span></Link></li>*/}
+            <li>
+            <Link className="ai-icon" to="#">
+              <i className="flaticon-138-thunderbolt"></i><span className="nav-text">Actions</span></Link></li>
+            <li>
+              <Link className={`${path === "market-capital" ? "mm-active" : ""}`} to="/market-capital">			
+                <i className="flaticon-091-shopping-cart"></i><span className="nav-text">Market</span></Link></li>
+            
             <li className={`${app.includes(path) ? "mm-active" : ""}`}>
               <Link className="ai-icon" to="#" >
                 <i className="flaticon-077-menu-1"></i>
-                <span className="nav-text">Stacking</span>
+                <span className="nav-text">Browse apps</span>
+              </Link>
+
+            </li>
+
+
+            {}
+			<li className="nav-label">Learn</li>
+            <li className={`${app.includes(path) ? "mm-active" : ""}`}>
+              <Link className="ai-icon" to="#" >
+                <i className="flaticon-003-diamond"></i>
+                <span className="nav-text">Courses</span>
               </Link>
 
             </li>
             <li className={`${charts.includes(path) ? "mm-active" : ""}`}>
               <Link className="ai-icon" to="#" >
-                <i className="flaticon-061-puzzle"></i>
-                <span className="nav-text">DEFI</span>
+                <i className="flaticon-095-umbrella"></i>
+                <span className="nav-text">Blockchain articles</span>
               </Link>
 
             </li>
-			<li className="nav-label">Apps</li>
+			
+        {/*<li className="nav-label">Others</li>
+            
+            
             <li>
-            <Link className="ai-icon" >
-              <i className="flaticon-003-diamond"></i>
-              <span className="nav-text">Ternoa</span>
-            </Link>
-            </li>
-            <li>
-            <Link className="ai-icon"  >
+            <Link className="ai-icon"  to="#">
               <i className="flaticon-007-equalizer"></i>
               <span className="nav-text">Snapshot</span>
             </Link>
             </li>
             <li>
-            <Link className="ai-icon"  >
+            <Link className="ai-icon"  to="#">
               <i className="flaticon-031-cloud"></i>
               <span className="nav-text">Opensea</span>
             </Link>
             </li>
             <li>
-            <Link className="ai-icon" >
+            <Link className="ai-icon" to="#">
               <i className="flaticon-381-more"></i>
               <span className="nav-text">More...</span>
             </Link>
-            </li>
+            </li>*/}
 
 
           </MM>

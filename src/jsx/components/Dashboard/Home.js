@@ -41,9 +41,17 @@ const orderdataBlog = [
 
 
 const Home = () => {
-	const { changeBackground } = useContext(ThemeContext);
+	const { 
+		changeBackground,
+		changeSideBarStyle,
+		changeNavigationHader,
+		chnageHaderColor
+	} = useContext(ThemeContext);
 	useEffect(() => {
-		changeBackground({ value: "dark", label: "Dark" });
+		changeBackground({ value: "light", label: "Light" });
+		changeSideBarStyle({ value: "compact", label: "Compact" });	
+		changeNavigationHader("color_9");
+		chnageHaderColor("color_9");
 	}, []);
 	const [crrency1, setCrrency1] = useState("Monthly (2021)");
 	const [country1, setCountry1] = useState("Medan, IDN");

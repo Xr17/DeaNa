@@ -2,7 +2,8 @@ import React, { Fragment, useContext, useState } from "react";
 /// React router dom
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../../context/ThemeContext";
-import brandLogo from "../../../icons/brand-logo.png";
+//import brandLogo from "../../../icons/brand-logo-bg.png";
+import brandLogo from "../../../icons/logo.png";
 import logo from "../../../icons/logo.png";
 
 

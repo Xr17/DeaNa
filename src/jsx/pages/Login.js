@@ -38,17 +38,22 @@ function Login (props) {
     }
 
   return (
-        <div className="login-main-page" style={{backgroundImage:"url("+ loginbg +")"}}>
+        <div className="login-main-page">{/*<div className="login-main-page" style={{backgroundImage:"url("+ loginbg +")"}}>*/}
             <div className="login-wrapper">
-                <div className="login-aside-left" style={{backgroundImage:"url("+ login +")"}}>
+                {/*<div className="login-aside-left" style={{backgroundImage:"url("+ login +")"}}>*/}
+                <div className="login-aside-left" >
                     <Link to="/dashboard" className="login-logo">
-                        <img style={{width:"50%"}}class="brand-logo" src={logo} alt="" />
+                        <img style={{width:"50%"}} className="brand-logo" src={logo} alt="" />
                       </Link>
                     <div className="login-description">
-                        <h2 className="text-black  mb-2">Welcome to <b>DeaNa</b>, the crypto wallet <b>for all</b></h2>
-                        <p className="fs-15 text-dark">Connect web3 dapps, learn on recommendations, through courses and tips</p>
-                        <p className="fs-15 text-dark">Buy and sell digital assets quickly, easily</p>
-                        <ul className="social-icons mt-4">
+                        <h2 className="text-black  mb-2">Welcome to <b>DeaNa</b>, the crypto wallet <b className="text-primary">for all</b>.</h2>
+                        
+                        <div className="fs-15 text-dark">Benefit all the blockchain power <strong>serenly</strong>.</div>
+                        <div className="fs-15 text-dark">Manage your digital assets as quickly as <strong>easily</strong>.</div>
+                        <div className="fs-15 text-dark">Keep them <strong>safe</strong>.</div>
+                        <div className="fs-15 text-dark"><strong>Learn</strong> about blockchain and cryptos through courses and tips.</div>
+                        
+                        {/*<ul className="social-icons mt-4">
                             <li><Link to={"#"}><i className="fa fa-facebook"></i></Link></li>
                             <li><Link to={"#"}><i className="fa fa-twitter"></i></Link></li>
                             <li><Link to={"#"}><i className="fa fa-linkedin"></i></Link></li>
@@ -57,7 +62,7 @@ function Login (props) {
                             <Link to={"#"} className="text-black mr-4">Privacy Policy</Link>
                             <Link to={"#"} className="text-black mr-4">Contact</Link>
                             <Link to={"#"} className="text-black">© 2022 DexignZone</Link>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
                 <div className="login-aside-right">
@@ -67,10 +72,10 @@ function Login (props) {
                           <div className="row no-gutters">
                             <div className="col-xl-12">
                               <div className="auth-form-1">
-                                <div className="mb-4">
+                                {/*<div className="mb-4">
                                     <h3 className="text-primary mb-1">Welcome to DeaNa</h3>
                                     <p className="">Are you new here?</p>
-                                </div>
+                                </div>*/}
                                 {props.errorMessage && (
                                     <div className='bg-red-300 text-red-900 border border-red-900 p-1 my-2'>
                                         {props.errorMessage}
@@ -82,18 +87,16 @@ function Login (props) {
                                     </div>
                                 )}
 
-                                  <Link   className="btn btn-success btn-block" to="./page-register">
+                                  <Link   className="btn btn-primary btn-block text-white" to="./page-register">
                                       Create my wallet
                                   </Link>
-                                    <hr width={"50%"}/>
+                                    <br/>
                                 <form onSubmit={onLogin}>
 
                                   <div className="text-center">
-
-
-                                      <button
+                                    <button
                                           type="submit"
-                                          className="btn btn-info btn-block"
+                                          className="btn btn-outline-primary btn-block"
                                       >
                                          I already have one
                                       </button>
@@ -101,12 +104,12 @@ function Login (props) {
                                   </div>
                                 </form>
                                 <div className="new-account mt-2 warn">
-                                  <p className="">
+                                  <div className="text-center"><br/>
 
-                                    <Link className="text-primary" to="./page-register">
-                                        HELP ! I HAVE LOST MY SECRET !
+                                    <Link className="text-danger" to="./page-register">
+                                        Help me recover my wallet!
                                     </Link>
-                                  </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
