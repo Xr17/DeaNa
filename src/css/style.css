@@ -27434,7 +27434,8 @@ table.dataTable.display tbody td {
   margin-top: 30px; }
   .portofolio-social li a {
     height: 52px;
-    width: 52px;
+      padding-left: 10px;
+      padding-right: 10px;
     border: 1px solid;
     border-color: var(--primary);
     line-height: 52px;
