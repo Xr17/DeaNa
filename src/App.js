@@ -11,6 +11,9 @@ import { isAuthenticated } from './store/selectors/AuthSelectors';
 import './vendor/swiper/swiper-bundle.css';
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
+import {EthProvider} from "./jsx/components/EthContext";
+import SocialRecoveryConfirm from "./jsx/components/Dashboard/SocialRecoveryConfirm";
+import SocialRecoveryUnlock from "./jsx/components/Dashboard/SocialRecoveryUnlock";
 
 
 const SignUp = lazy(() => import('./jsx/pages/Registration'));
@@ -29,14 +32,19 @@ function App (props) {
     
     let routes = (  
         <Switch>
+            <EthProvider>
             <Route path='/login' component={Login} />
             <Route path='/page-register' component={SignUp} />
-            <Route path='/page-forgot-password' component={ForgotPassword} />
+            <Route path='/help' component={ForgotPassword} />
+            <Route path='/page-social-recovery-confirm' component={SocialRecoveryConfirm} />
+            <Route path='/page-social-recovery-unlock' component={SocialRecoveryUnlock} />
+            </EthProvider>
         </Switch>
     );
     if (props.isAuthenticated) {
 		return (
 			<>
+
                 <Suspense fallback={
                     <div id="preloader">
                         <div className="sk-three-bounce">
@@ -47,8 +55,11 @@ function App (props) {
                     </div>  
                    }
                 >
+                    <EthProvider>
                     <Index / >
+                        </EthProvider>
                 </Suspense>
+
             </>
         );
 	

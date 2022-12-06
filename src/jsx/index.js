@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 
 /// React router dom
-import {  Switch, Route } from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 
 /// Css
 import "./index.css";
@@ -113,173 +113,181 @@ import ForgotPassword from "./pages/ForgotPassword";
 import LockScreen from "./pages/LockScreen";
 import Error400 from "./pages/Error400";
 import Error403 from "./pages/Error403";
-import Error404 from "./pages/Error404";
 import Error500 from "./pages/Error500";
 import Error503 from "./pages/Error503";
 import Setting from "./layouts/Setting";
-import { ThemeContext } from "../context/ThemeContext";
+import {ThemeContext} from "../context/ThemeContext";
+import SocialRecovery from "./components/Dashboard/SocialRecovery";
+import SocialRecoveryConfirm from "./components/Dashboard/SocialRecoveryConfirm";
+import SocialRecoveryUnlock from "./components/Dashboard/SocialRecoveryUnlock";
+import {EthProvider} from "./components/EthContext";
 
 const Markup = () => {
-  const { menuToggle } = useContext(ThemeContext);
-  const routes = [
-    /// Dashboard
-    { url: "", component: Home },
-    { url: "dashboard", component: Home },
-    { url: "my-wallets", component: Wallet },
-    { url: "transactions", component: Transactions },
-    { url: "coin-details", component: CoinDetails },
-    { url: "portofolio", component: Portofolio },
-    { url: "market-capital", component: MarketCapital },
-   
-   //themes
-	{ url: "dashboard-light", component: DashboradLight },
-	{ url: "dark-sidebar", component: Theme1 },
-	{ url: "modern-sidebar", component: Theme2 },
-	{ url: "horizontal-sidebar", component: Theme3 },
-	{ url: "compact-sidebar", component: Theme4 },
-	{ url: "icon-hover", component: Theme5 },
-	{ url: "mini-sidebar", component: Theme6 },
-	{ url: "dark-mini", component: Theme7 },
-	{ url: "full-sidebar", component: Theme8 },
-   
+    const {menuToggle} = useContext(ThemeContext);
+    const routes = [
+        /// Dashboard
+        {url: "", component: Home},
+        {url: "dashboard", component: Home},
+        {url: "my-wallets", component: Wallet},
+        {url: "transactions", component: Transactions},
+        {url: "coin-details", component: CoinDetails},
+        {url: "portofolio", component: Portofolio},
+        {url: "market-capital", component: MarketCapital},
+        {url: "social-recovery", component: SocialRecovery},
 
-    /// Apps
-    { url: "app-profile", component: AppProfile },
-    { url: "email-compose", component: Compose },
-    { url: "email-inbox", component: Inbox },
-    { url: "email-read", component: Read },
-    { url: "app-calender", component: Calendar },
-    { url: "post-details", component: PostDetails },
+        //themes
+        {url: "dashboard-light", component: DashboradLight},
+        {url: "dark-sidebar", component: Theme1},
+        {url: "modern-sidebar", component: Theme2},
+        {url: "horizontal-sidebar", component: Theme3},
+        {url: "compact-sidebar", component: Theme4},
+        {url: "icon-hover", component: Theme5},
+        {url: "mini-sidebar", component: Theme6},
+        {url: "dark-mini", component: Theme7},
+        {url: "full-sidebar", component: Theme8},
 
-    /// Chart
-    { url: "chart-sparkline", component: SparklineChart },
-	{ url: "chart-chartjs", component: ChartJs },
-	{ url: "chart-chartist", component: Chartist },
-    { url: "chart-apexchart", component: ApexChart },
-    { url: "chart-rechart", component: RechartJs },
 
-    /// Bootstrap
-    { url: "ui-alert", component: UiAlert },
-    { url: "ui-badge", component: UiBadge },
-    { url: "ui-button", component: UiButton },
-    { url: "ui-modal", component: UiModal },
-    { url: "ui-button-group", component: UiButtonGroup },
-    { url: "ui-accordion", component: UiAccordion },
-    { url: "ui-list-group", component: UiListGroup },
-    //{ url: "ui-media-object", component: UiMediaObject },
-    { url: "ui-card", component: UiCards },
-    { url: "ui-carousel", component: UiCarousel },
-    { url: "ui-dropdown", component: UiDropDown },
-    { url: "ui-popover", component: UiPopOver },
-    { url: "ui-progressbar", component: UiProgressBar },
-    { url: "ui-tab", component: UiTab },
-    { url: "ui-pagination", component: UiPagination },
-    { url: "ui-typography", component: UiTypography },
-    { url: "ui-grid", component: UiGrid },
+        /// Apps
+        {url: "app-profile", component: AppProfile},
+        {url: "email-compose", component: Compose},
+        {url: "email-inbox", component: Inbox},
+        {url: "email-read", component: Read},
+        {url: "app-calender", component: Calendar},
+        {url: "post-details", component: PostDetails},
 
-    /// Plugin
-    { url: "uc-select2", component: Select2 },
-    //{ url: "uc-nestable", component: Nestable },
-    { url: "uc-noui-slider", component: MainNouiSlider },
-    { url: "uc-sweetalert", component: MainSweetAlert },
-    { url: "uc-toastr", component: Toastr },
-    { url: "map-jqvmap", component: JqvMap },
-    { url: "uc-lightgallery", component: Lightgallery },
+        /// Chart
+        {url: "chart-sparkline", component: SparklineChart},
+        {url: "chart-chartjs", component: ChartJs},
+        {url: "chart-chartist", component: Chartist},
+        {url: "chart-apexchart", component: ApexChart},
+        {url: "chart-rechart", component: RechartJs},
 
-	///Redux
-	{ url: "todo", component: Todo },
-	//{ url: "redux-form", component: ReduxForm }, 
-    { url: 'form-redux-wizard', component: WizardForm },
-	
-    /// Widget
-    { url: "widget-basic", component: Widget },
+        /// Bootstrap
+        {url: "ui-alert", component: UiAlert},
+        {url: "ui-badge", component: UiBadge},
+        {url: "ui-button", component: UiButton},
+        {url: "ui-modal", component: UiModal},
+        {url: "ui-button-group", component: UiButtonGroup},
+        {url: "ui-accordion", component: UiAccordion},
+        {url: "ui-list-group", component: UiListGroup},
+        //{ url: "ui-media-object", component: UiMediaObject },
+        {url: "ui-card", component: UiCards},
+        {url: "ui-carousel", component: UiCarousel},
+        {url: "ui-dropdown", component: UiDropDown},
+        {url: "ui-popover", component: UiPopOver},
+        {url: "ui-progressbar", component: UiProgressBar},
+        {url: "ui-tab", component: UiTab},
+        {url: "ui-pagination", component: UiPagination},
+        {url: "ui-typography", component: UiTypography},
+        {url: "ui-grid", component: UiGrid},
 
-    /// Shop
-    { url: "ecom-product-grid", component: ProductGrid },
-    { url: "ecom-product-list", component: ProductList },
-    { url: "ecom-product-detail", component: ProductDetail },
-    { url: "ecom-product-order", component: ProductOrder },
-    { url: "ecom-checkout", component: Checkout },
-    { url: "ecom-invoice", component: Invoice },
-    { url: "ecom-product-detail", component: ProductDetail },
-    { url: "ecom-customers", component: Customers },
+        /// Plugin
+        {url: "uc-select2", component: Select2},
+        //{ url: "uc-nestable", component: Nestable },
+        {url: "uc-noui-slider", component: MainNouiSlider},
+        {url: "uc-sweetalert", component: MainSweetAlert},
+        {url: "uc-toastr", component: Toastr},
+        {url: "map-jqvmap", component: JqvMap},
+        {url: "uc-lightgallery", component: Lightgallery},
 
-    /// Form
-	
-    { url: "form-element", component: Element },
-	{ url: "form-wizard", component: Wizard },
-    { url: "form-pickers", component: Pickers },
-    { url: "form-validation-jquery", component: jQueryValidation },
+        ///Redux
+        {url: "todo", component: Todo},
+        //{ url: "redux-form", component: ReduxForm },
+        {url: 'form-redux-wizard', component: WizardForm},
 
-    /// table
-	{ url: 'table-filtering', component: FilteringTable },
-    { url: 'table-sorting', component: SortingTable },
-    { url: "table-datatable-basic", component: DataTable },
-    { url: "table-bootstrap-basic", component: BootstrapTable },
+        /// Widget
+        {url: "widget-basic", component: Widget},
 
-    /// pages
-    { url: "page-register", component: Registration },
-    { url: "page-lock-screen", component: LockScreen },
-    { url: "page-login", component: Login },
-    { url: "page-forgot-password", component: ForgotPassword },
-    { url: "page-error-400", component: Error400 },
-    { url: "page-error-403", component: Error403 },
-    { url: "page-error-404", component: Error404 },
-    { url: "page-error-500", component: Error500 },
-    { url: "page-error-503", component: Error503 },
-  ];
-  let path = window.location.pathname;
-  path = path.split("/");
-  path = path[path.length - 1];
-  let pagePath = path.split("-").includes("page");
-  
-    setTimeout(function(){
-		var btn = document.querySelector("#main-wrapper");
-		var metisMenu = document.querySelector(".metismenu");
-		metisMenu.addEventListener("mouseenter", toggleFunc1);
-		metisMenu.addEventListener("mouseleave", toggleFunc2);
-		function toggleFunc1() {
-			return btn.classList.add("iconhover-toggle");
-		}
-		function toggleFunc2() {
-			return btn.classList.remove("iconhover-toggle");
-		}	
-	}, 200);
-  
-  
-  return (
-    <>
-      <div
-        id={`${!pagePath ? "main-wrapper" : ""}`}
-        className={`${!pagePath ? "show" : "mh100vh"}  ${
-          menuToggle ? "menu-toggle" : ""
-        }`}
-      >
-        {!pagePath && <Nav />}
+        /// Shop
+        {url: "ecom-product-grid", component: ProductGrid},
+        {url: "ecom-product-list", component: ProductList},
+        {url: "ecom-product-detail", component: ProductDetail},
+        {url: "ecom-product-order", component: ProductOrder},
+        {url: "ecom-checkout", component: Checkout},
+        {url: "ecom-invoice", component: Invoice},
+        {url: "ecom-product-detail", component: ProductDetail},
+        {url: "ecom-customers", component: Customers},
 
-        <div className={`${!pagePath ? "content-body" : ""}`}>
-          <div
-            className={`${!pagePath ? "container-fluid" : ""}`}
-            style={{ minHeight: window.screen.height - 60 }}
-          >
-            <Switch>
-              {routes.map((data, i) => (
-                <Route
-                  key={i}
-                  exact
-                  path={`/${data.url}`}
-                  component={data.component}
-                />
-              ))}
-            </Switch>
-          </div>
-        </div>
-        {!pagePath && <Footer />}
-      </div>
-      <Setting />
-	  <ScrollToTop />
-    </>
-  );
+        /// Form
+
+        {url: "form-element", component: Element},
+        {url: "form-wizard", component: Wizard},
+        {url: "form-pickers", component: Pickers},
+        {url: "form-validation-jquery", component: jQueryValidation},
+
+        /// table
+        {url: 'table-filtering', component: FilteringTable},
+        {url: 'table-sorting', component: SortingTable},
+        {url: "table-datatable-basic", component: DataTable},
+        {url: "table-bootstrap-basic", component: BootstrapTable},
+
+        /// pages
+        {url: "page-register", component: Registration},
+        {url: "page-lock-screen", component: LockScreen},
+        {url: "page-login", component: Login},
+        {url: "page-forgot-password", component: ForgotPassword},
+        {url: "page-error-400", component: Error400},
+        {url: "page-error-403", component: Error403},
+        {url: "page-social-recovery-confirm", component: SocialRecoveryConfirm},
+        {url: "page-social-recovery-unlock", component: SocialRecoveryUnlock},
+        {url: "page-error-500", component: Error500},
+        {url: "page-error-503", component: Error503},
+    ];
+    let path = window.location.pathname;
+    path = path.split("/");
+    path = path[path.length - 1];
+    let pagePath = path.split("-").includes("page");
+
+    setTimeout(function () {
+        var btn = document.querySelector("#main-wrapper");
+        var metisMenu = document.querySelector(".metismenu");
+        metisMenu.addEventListener("mouseenter", toggleFunc1);
+        metisMenu.addEventListener("mouseleave", toggleFunc2);
+
+        function toggleFunc1() {
+            return btn.classList.add("iconhover-toggle");
+        }
+
+        function toggleFunc2() {
+            return btn.classList.remove("iconhover-toggle");
+        }
+    }, 200);
+
+
+    return (
+        <>
+
+            <div
+                id={`${!pagePath ? "main-wrapper" : ""}`}
+                className={`${!pagePath ? "show" : "mh100vh"}  ${
+                    menuToggle ? "menu-toggle" : ""
+                }`}
+            >
+                {!pagePath && <Nav/>}
+
+                <div className={`${!pagePath ? "content-body" : ""}`}>
+                    <div
+                        className={`${!pagePath ? "container-fluid" : ""}`}
+                        style={{minHeight: window.screen.height - 60}}
+                    >
+                        <Switch>
+                            {routes.map((data, i) => (
+                                <Route
+                                    key={i}
+                                    exact
+                                    path={`/${data.url}`}
+                                    component={data.component}
+                                />
+                            ))}
+                        </Switch>
+                    </div>
+                </div>
+                {!pagePath && <Footer/>}
+            </div>
+            <Setting/>
+            <ScrollToTop/>
+        </>
+    );
 };
 
 export default Markup;

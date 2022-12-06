@@ -6,6 +6,8 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 /// Link
 import { Link } from "react-router-dom";
 import profile from "../../../images/Untitled-1.jpg";
+import {useEth} from "../../components/EthContext";
+import Address from "../../components/Dashboard/Address";
 
 
 class MM extends Component {
@@ -26,6 +28,11 @@ class MM extends Component {
     }
 }
 
+function GetAccount(){
+  const { state: { contract, accounts } } = useEth();
+  return accounts[0];
+}
+
 class SideBar extends Component {
   /// Open menu
   componentDidMount() {
@@ -43,11 +50,11 @@ class SideBar extends Component {
 			return handleheartBlast.classList.toggle("heart-blast");
 		}
 		handleheartBlast.addEventListener('click', heartBlast);
-	
   }
   state = {
     loveEmoji: false,
   };
+
   render() {
     /// Path
     let path = window.location.pathname;
@@ -174,19 +181,20 @@ class SideBar extends Component {
 					<Link to={"#"}><i className="fa fa-cog" aria-hidden="true"></i></Link>
 				</div>	
 				<h5 className="mb-0 fs-20 text-black "><span className="font-w400">Hello,</span> Julien Lampin</h5>
-				<p className="mb-0 fs-14 font-w400">pro.julienlampin@mail.com</p>
+				<p className="mb-0 fs-14 font-w400"><Address></Address></p>
+
 			</div>
           <MM className="metismenu" id="menu">
 			<li className="nav-label first">Wallet</li>
 
             <li>
-              <Link className={`${path === "" ? "" : ""}`} to="/portofolio">{/*to="/my-wallets">*/}
+              <Link className={`${path === "" ? "mm-active" : ""}`} to="/portofolio">{/*to="/my-wallets">*/}
                 <i className="flaticon-092-money"></i><span className="nav-text">Wallet</span></Link></li>
                   {
                     //	<li><Link className={`${path === "dashboard" ? "mm-dashboard" : ""}`} to="/">Dashboard </Link></li>}
                   }
             <li>
-              <Link className={`${path === "transactions" ? "mm-active" : ""}`} to="/transactions"> 			
+              <Link className={`${path === "transactions" ? "mm-active" : ""}`} to="/transactions">
                 <i className="flaticon-008-credit-card"></i><span className="nav-text">Activities</span></Link></li>
                   {
                     //<li><Link className={`${path === "coin-details" ? "mm-active" : ""}`} to="/coin-details"> Coin Details</Link> </li>
@@ -194,13 +202,14 @@ class SideBar extends Component {
             {/*<li>
               <Link className={`${path === "portofolio" ? "mm-active" : ""}`} to="/portofolio">
                 <i className="flaticon-063-picture"></i><span className="nav-text">Portofolio</span></Link></li>*/}
+            <li><Link className={`${path === "social-recovery" ? "mm-active" : ""} text-primary`} to="/social-recovery">			<i className="flaticon-381-lock text-primary"></i><span className="nav-text">Social Recovery</span></Link></li>
             <li>
             <Link className="ai-icon" to="#">
               <i className="flaticon-138-thunderbolt"></i><span className="nav-text">Actions</span></Link></li>
             <li>
-              <Link className={`${path === "market-capital" ? "mm-active" : ""}`} to="/market-capital">			
+              <Link className={`${path === "market-capital" ? "mm-active" : ""}`} to="/market-capital">
                 <i className="flaticon-091-shopping-cart"></i><span className="nav-text">Market</span></Link></li>
-            
+
             <li className={`${app.includes(path) ? "mm-active" : ""}`}>
               <Link className="ai-icon" to="#" >
                 <i className="flaticon-077-menu-1"></i>
@@ -226,10 +235,10 @@ class SideBar extends Component {
               </Link>
 
             </li>
-			
+
         {/*<li className="nav-label">Others</li>
-            
-            
+
+
             <li>
             <Link className="ai-icon"  to="#">
               <i className="flaticon-007-equalizer"></i>

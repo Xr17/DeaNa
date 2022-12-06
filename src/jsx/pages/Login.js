@@ -106,7 +106,7 @@ function Login (props) {
                                 <div className="new-account mt-2 warn">
                                   <div className="text-center"><br/>
 
-                                    <Link className="text-danger" to="./page-register">
+                                    <Link className="text-danger" to="./help">
                                         Help me recover my wallet!
                                     </Link>
                                   </div>
