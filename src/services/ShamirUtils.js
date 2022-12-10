@@ -440,14 +440,14 @@ let Shamir = {
 
 
 
-export const generateShares = (secret, shares)=>{
+export const generateShares = (secret, shares, threshold)=>{
 
 
     const crypto = require('crypto-js');
     const shamir = require('./Shamir');
 
     shares = parseInt(shares);
-    var threshold = Math.floor(shares/2)+1;
+
 
     if (!secret || !shares || !threshold) {
         return console.log(`Usage:\n./generateShares.js '<my super secret data>' <shareCount> <thresholdCount>`);

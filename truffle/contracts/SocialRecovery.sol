@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.17;
-import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity 0.8.14;
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title SocialRecovery contract used for DeaNa APP
 /// @author Julien Lampin
@@ -12,10 +12,11 @@ contract SocialRecovery is Ownable {
     /// @notice Main struture of guardians, guardians are the protector of users and are always related to a specific user
     struct Guardian {
         address guardianAddress;
-        bool isConfirmed;
+        address guardianOf;
         string secret;
         string unlockedSecret;
-
+        GuardianStatus guardianStatus;
+        string name;
     }
 
     /// @notice Main struture of users
@@ -25,7 +26,8 @@ contract SocialRecovery is Ownable {
     /// @custom:threashold When secured, indicate the minimum number of shares required to unlock the main key
     struct User {
         address userAddress;
-        Guardian[] guardians;
+        address[] guardians;
+        uint guardianCount;
         UserAccountStatus accountStatus;
         address recoveryAddress;
         string name;
@@ -37,6 +39,7 @@ contract SocialRecovery is Ownable {
     enum UserAccountStatus {
         Init,
         Locked,
+        PendingUnlock,
         Unlocked
     }
 
@@ -53,14 +56,29 @@ contract SocialRecovery is Ownable {
     event UserAccountStatusChange(address userAddress, UserAccountStatus statusBefore, UserAccountStatus statusAfter, uint256 timestamp);
 
     /// @notice Main mapping to retrieve an user using its address
-    mapping (address => User) userAddressToUser;
+    mapping (address => User) users;
 
-    /// @notice Main mapping to retrieve an user using its guardianAddress
-    /// @dev Assuming here (for the v1) that address can only be used to protect one account
-    mapping (address => User) guardianAddressToUser;
+    /// @notice Main mapping to retrieve an user using its guardian address
+    mapping (address => Guardian) guardians;
 
-    /// @notice Mapping linking pending recovery user to real blocked user
-    mapping (address => User) recoveryUserAddressToUser;
+    /// @notice Main mapping to retrieve an user using its recover address
+    mapping (address => User) recoveryUsers;
+
+
+    modifier onlyUsers() {
+        require(users[msg.sender].userAddress == msg.sender, "You're not a user");
+        _;
+    }
+
+    modifier onlyRecoverUsers() {
+        require(recoveryUsers[msg.sender].recoveryAddress == msg.sender, "You're not a user");
+        _;
+    }
+
+    modifier onlyGuardians() {
+        require(guardians[msg.sender].guardianAddress == msg.sender, "You're not a guardian");
+        _;
+    }
 
     /*
         event VoterRegistered(address voterAddress, uint256 timestamp);
@@ -74,50 +92,141 @@ contract SocialRecovery is Ownable {
     /// @param _name name of the guardian, only used for user friendly display
     /// @dev Will be applyed to current user, if no user exist, user will be created
     function addGuardian(address _guardianAddress, string calldata _name) external{
+        // Simplification here, user can only be guardian of one person
+        require(guardians[_guardianAddress].guardianAddress != _guardianAddress, "This address is already used as a guardian");
 
+        if(users[msg.sender].userAddress != msg.sender){
+            initUser();
+        }
+
+        User storage user = users[msg.sender];
+        for(uint i = 0 ; i < user.guardianCount ; i++){
+            if(user.guardians[i] == _guardianAddress){
+                revert("Guardian already exists.");
+            }
+        }
+
+        guardians[_guardianAddress] = Guardian({
+        name:_name,
+        guardianAddress : _guardianAddress,
+        guardianStatus: GuardianStatus.Pending,
+        secret : "",
+        guardianOf: msg.sender,
+        unlockedSecret: ""
+        });
+
+        user.guardians[users[msg.sender].guardianCount++] = _guardianAddress;
+    }
+
+
+    function initUser() private {
+        users[msg.sender] = User({
+        userAddress : msg.sender,
+        guardians: new address[](5), // simplification, only 5 guardians allowed
+        guardianCount: 0,
+        accountStatus : UserAccountStatus.Init,
+        recoveryAddress : address(0),
+        name : "",
+        shareCounts : 0,
+        threashold : 0
+        });
+    }
+    function reset() onlyUsers external{
+        User memory user = users[msg.sender];
+
+        for(uint i = 0 ; i < user.guardianCount ; i++){
+            delete guardians[user.guardians[i]];
+        }
+        delete recoveryUsers[user.recoveryAddress];
+        delete users[msg.sender];
     }
 
     /// @notice Revoke a guardian, removing it for user guardian list
     /// @param _guardianAddress address of the guardian to revoke
     /// @dev Allowed only if number of remaining guardian is higher or equal than threashold
-    function revokeGuardian(address _guardianAddress) external{
-
+    function revokeGuardian(address _guardianAddress) onlyUsers external{
+        User storage user = users[msg.sender];
+        bool guardianFound = false;
+        for(uint i = 0 ; i < user.guardianCount ; i++){
+            if(guardianFound){
+                user.guardians[i-1] = user.guardians[i];
+            }
+            if(user.guardians[i] == _guardianAddress){
+                user.guardians[i] = address(0);
+                delete guardians[_guardianAddress];
+                guardianFound = true;
+            }
+        }
+        if(guardianFound){
+            user.guardians[user.guardianCount-1] = address(0);
+            user.guardianCount--;
+        }
     }
 
     /// @notice Return the user related to a specific guardian (Assuming here (for the v1) that address can only be used to protect one account)
-    function getUserFromGuardian() external view returns(User memory){
-        return guardianAddressToUser[msg.sender];
+    /// @return User that sender address is protecting
+    function getProtectedUser() external view returns(User memory){
+        return users[guardians[msg.sender].guardianOf];
     }
 
     /// @notice Return the user related to a specific recovered address
-    function getUserFromRecoveredAddress() external view returns(User memory){
-        return recoveryUserAddressToUser[msg.sender];
-
+    function getRecoverUser() external view returns(User memory){
+        return recoveryUsers[msg.sender];
     }
 
     /// @notice Return the user related to caller address
     function getUser() external view returns(User memory){
-        return userAddressToUser[msg.sender];
+        return users[msg.sender];
+    }
+
+    function getGuardian(address _guardianAddress) external view returns(Guardian memory){
+        return guardians[_guardianAddress];
+    }
+
+    function getGuardian() external view returns(Guardian memory){
+        return guardians[msg.sender];
     }
 
     /// @notice Method to retrieve guardian secret
     /// @return  The guardian related current secret (this secret is encrypt using guardian key)
     /// @dev can only be used by the guardian itself
-    function getSecret() external returns(string memory){
+    function getUnlockedSecrets() external onlyRecoverUsers view returns(string[] memory){
 
+        User memory user = recoveryUsers[msg.sender];
+        string[] memory secrets = new string[](5);
+
+        for(uint i = 0 ; i < user.guardianCount ; i++){
+            if(guardians[user.guardians[i]].guardianStatus == GuardianStatus.Unlocked){
+                secrets[i] =guardians[user.guardians[i]].unlockedSecret;
+            }
+        }
+        return secrets;
     }
 
     /// @notice Confirm a guardian protection
     /// @dev can only be used by the guardian itself
-    function confirmGuardian() external{
+    function confirmGuardian() onlyGuardians external{
+        require(guardians[msg.sender].guardianStatus == GuardianStatus.Pending, "You are not pending protect");
 
+        guardians[msg.sender].guardianStatus = GuardianStatus.Confirmed;
     }
 
     /// @notice Unlock a secret by adding the unlockedSecret to the guardian
     /// @param _recoveryUserAddress recovery address used to encrypt the unlocked secret
     /// @param unlockedSecret decrypt secret from guardian, re-encrypted with user recovery address
     /// @dev if account was in recovery we initialise the recovery mode by setting the _recoveryUserAddress
-    function unlock(address _recoveryUserAddress, string calldata unlockedSecret) external{
+    function unlock(address _recoveryUserAddress, string calldata unlockedSecret) onlyGuardians external{
+        require(guardians[msg.sender].guardianStatus == GuardianStatus.Locked, "You are not protecting any secret");
+        require(users[guardians[msg.sender].guardianOf].recoveryAddress == address(0) || users[guardians[msg.sender].guardianOf].recoveryAddress == _recoveryUserAddress, "recoveryAddress is already set to another one");
+
+        if(users[guardians[msg.sender].guardianOf].recoveryAddress == address(0)){
+            users[guardians[msg.sender].guardianOf].recoveryAddress = _recoveryUserAddress;
+            recoveryUsers[_recoveryUserAddress] = users[guardians[msg.sender].guardianOf];
+            users[guardians[msg.sender].guardianOf].accountStatus=UserAccountStatus.PendingUnlock;
+        }
+
+        guardians[msg.sender].guardianStatus = GuardianStatus.Unlocked;
+        guardians[msg.sender].unlockedSecret = unlockedSecret;
 
     }
 
@@ -125,108 +234,20 @@ contract SocialRecovery is Ownable {
     /// @param _shares parts of the secret crypted with guardian key
     /// @param threashold minimum number of shares needed to unlock the secret
     /// @dev _shares should be in the same order as guardians
-    function lock(string[] calldata _shares, uint threashold) external{
-
-    }
-
-
-    /*
-
-    // on peut faire un modifier pour les états
-
-    // ::::::::::::: GETTERS ::::::::::::: //
-
-    function getVoter(address _addr) external onlyVoters view returns (Voter memory) {
-        return voters[_addr];
-    }
-
-    function getOneProposal(uint _id) external onlyVoters view returns (Proposal memory) {
-        return proposalsArray[_id];
-    }
+    function lock(string[] calldata _shares, uint threashold) onlyUsers external{
+        require(_shares.length >= threashold, "threashold should be less of equals than shares number");
+        require(users[msg.sender].guardianCount == _shares.length, "You should have the same number of guardians and shares");
+        require(users[msg.sender].guardianCount >= threashold, "You don't have enough guardians");
 
 
-    // ::::::::::::: REGISTRATION ::::::::::::: //
-
-    function addVoter(address _addr) external onlyOwner {
-        require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Voters registration is not open yet');
-        require(voters[_addr].isRegistered != true, 'Already registered');
-
-        voters[_addr].isRegistered = true;
-        emit VoterRegistered(_addr,block.timestamp);
-    }
-
-
-    // ::::::::::::: PROPOSAL ::::::::::::: //
-
-    function addProposal(string calldata _desc) external onlyVoters {
-        require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Proposals are not allowed yet');
-        require(keccak256(abi.encode(_desc)) != keccak256(abi.encode("")), 'Vous ne pouvez pas ne rien proposer'); // facultatif
-        require(voters[msg.sender].proposalCount<3, 'Vous ne pouvez proposer que 3 propositions maximum');
-        // voir que desc est different des autres
-
-        Proposal memory proposal;
-        proposal.description = _desc;
-        proposalsArray.push(proposal);
-        voters[msg.sender].proposalCount++;
-        emit ProposalRegistered(msg.sender, proposal.description, proposalsArray.length-1, block.timestamp);
-    }
-
-    // ::::::::::::: VOTE ::::::::::::: //
-
-    function setVote( uint _id) external onlyVoters {
-        require(workflowStatus == WorkflowStatus.VotingSessionStarted, 'Voting session havent started yet');
-        require(voters[msg.sender].hasVoted != true, 'You have already voted');
-        require(_id < proposalsArray.length, 'Proposal not found'); // pas obligé, et pas besoin du >0 car uint
-
-        voters[msg.sender].votedProposalId = _id;
-        voters[msg.sender].hasVoted = true;
-        proposalsArray[_id].voteCount++;
-
-        emit Voted(msg.sender, _id,block.timestamp);
-    }
-
-    // ::::::::::::: STATE ::::::::::::: //
-
-
-    function startProposalsRegistering() external onlyOwner {
-        require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Registering proposals cant be started now');
-        workflowStatus = WorkflowStatus.ProposalsRegistrationStarted;
-
-        emit WorkflowStatusChange(WorkflowStatus.RegisteringVoters, WorkflowStatus.ProposalsRegistrationStarted,block.timestamp);
-    }
-
-    function endProposalsRegistering() external onlyOwner {
-        require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Registering proposals havent started yet');
-        workflowStatus = WorkflowStatus.ProposalsRegistrationEnded;
-        emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationStarted, WorkflowStatus.ProposalsRegistrationEnded,block.timestamp);
-    }
-
-    function startVotingSession() external onlyOwner {
-        require(workflowStatus == WorkflowStatus.ProposalsRegistrationEnded, 'Registering proposals phase is not finished');
-        workflowStatus = WorkflowStatus.VotingSessionStarted;
-        emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationEnded, WorkflowStatus.VotingSessionStarted,block.timestamp);
-    }
-
-    function endVotingSession() external onlyOwner {
-        require(workflowStatus == WorkflowStatus.VotingSessionStarted, 'Voting session havent started yet');
-        workflowStatus = WorkflowStatus.VotingSessionEnded;
-        emit WorkflowStatusChange(WorkflowStatus.VotingSessionStarted, WorkflowStatus.VotingSessionEnded,block.timestamp);
-    }
-
-
-    function tallyVotes() external onlyOwner {
-        require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
-        uint _winningProposalId;
-        for (uint256 p = 0; p < proposalsArray.length; p++) {
-            if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
-                _winningProposalId = p;
-            }
+        uint guardianCount = users[msg.sender].guardianCount;
+        for(uint i = 0 ; i <guardianCount ; i++){
+            address guardianAddress = users[msg.sender].guardians[i];
+            require(guardians[guardianAddress].guardianStatus != GuardianStatus.Pending, "A guardian is not confirmed");
+            guardians[guardianAddress].guardianStatus = GuardianStatus.Locked;
+            guardians[guardianAddress].secret = _shares[i];
         }
-        winningProposalID = _winningProposalId;
-
-        workflowStatus = WorkflowStatus.VotesTallied;
-        emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied,block.timestamp);
+    users[msg.sender].accountStatus = UserAccountStatus.Locked;
     }
 
-    */
 }

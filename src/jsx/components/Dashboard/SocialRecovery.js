@@ -6,10 +6,8 @@ import contacts3 from "../../../images/contacts/Untitled-3.jpg";
 import contacts4 from "../../../images/contacts/Untitled-4.jpg";
 import notKnow from "../../../images/contacts/no-known.png";
 import {
-    addGuardian,
     getAccountStatus,
     getGuardians, getPending, getSecrets,
-    revokeGuardian,
     secureSecret
 } from "../../../services/SocialRecoveryContract";
 import {Alert, Button, Card, Col, Modal, Row} from "react-bootstrap";
@@ -19,16 +17,17 @@ import {useEth} from "../EthContext";
 const LOCK_COLOR = "#FF0000";
 const UNLOCK_COLOR = "#00FF00";
 const PENDING_COLOR = "#0000FF";
-var recoverUserAddress;
 
 
 const {randomBytes} = require('crypto');
 
 
+export const O_ADDRESS = "0x0000000000000000000000000000000000000000";
+
 function SocialRecovery() {
 
 
-   const { state: { accounts } } = useEth();
+   const { state: { contract, accounts } } = useEth();
   //  const [history, setHistory] = useState();
 
     const [showAddGuardan, setShowAddGuardan] = useState();
@@ -49,33 +48,75 @@ function SocialRecovery() {
     const [word10, setWord10] = useState();
     const [word11, setWord11] = useState();
     const [word12, setWord12] = useState();
+    const [user, setUser] = useState();
+    const [pendingSecure, setPendingSecure] = useState();
+    const [pendingAddGuardian, setPendingAddGuardian] = useState();
 
     const [connectedUserAddress, setConnectedUserAddress] = useState();
     const [recoverUserAddress, setRecoverUserAddress] = useState();
-    /*
-    const         state = {
-        showAddGuardan: false,
-        showProtectAccount: false,
-        newUser: {
-            name: "",
-            address: ""
-        },
-        guardians : getGuardians(recoverUserAddress)
-    }*/
 
-    useEffect(() => {
-        if(accounts){
-            setConnectedUserAddress(accounts[0]);
-            var recoverUser = getPending(accounts[0]);
-            if(recoverUser == null){
-                recoverUser =accounts[0];
-            }
-            setRecoverUserAddress(recoverUser);
-            console.log(guardians);
-            setGuardians(getGuardians(recoverUser));
+
+    const retrieveGuardian =  (address) => {
+        const guardian = contract.methods.getGuardian(address).call({from: accounts[0]});
+        return guardian;
+    }
+
+    const reset =  async () => {
+        await contract.methods.reset().send({from: accounts[0]});
+        await retrieveUser();
+    }
+
+    const retrieveUser = async () => {
+        var user = await contract.methods.getRecoverUser().call({from: accounts[0]});
+        if(user.userAddress==O_ADDRESS){
+            user = await contract.methods.getUser().call({from: accounts[0]});
         }
 
-    }, [accounts]);
+        var guardianObjects = [];
+        for(var i in user.guardians){
+            if(user.guardians[i] != O_ADDRESS){
+                guardianObjects.push(await retrieveGuardian(user.guardians[i]));
+            }
+        }
+        console.log(user);
+        setGuardians(guardianObjects);
+        setUser(user);
+        setRecoverUserAddress(user.userAddress);
+        setConnectedUserAddress(accounts[0]);
+    }
+
+    const addGuardian = async (name, address) => {
+        setPendingAddGuardian({name:name,guardianAddress:address, guardianStatus:"-1"});
+        await contract.methods.addGuardian(address, name).send({from: accounts[0]});
+        setPendingAddGuardian(null);
+        retrieveUser();
+
+    }
+    const secureSecret = async (shares, threashold) => {
+        setPendingSecure(true);
+        await contract.methods.lock(shares, threashold).send({from: accounts[0]});
+        setPendingSecure(false);
+        setShowProtectAccount(false);
+        retrieveUser();
+    }
+
+
+
+    const revokeGuardian = async ( address) => {
+        console.log(address);
+        await contract.methods.revokeGuardian(address).send({from: accounts[0]});
+        console.log(guardians);
+        await retrieveUser();
+    }
+
+    useEffect(() => {
+
+        if(contract){
+            retrieveUser();
+        }
+
+
+    }, [accounts, contract]);
 
 
     const formatLegend = (seriesName, opts) =>{
@@ -93,81 +134,36 @@ function SocialRecovery() {
         }
     }
 
-   const init = ()=> {
-        addGuardian(recoverUserAddress, {
-            image: contacts1,
-            name: 'Cindy',
-            address: '0x617F2E2fD72FD9D5503197092aC168c91465E7f2',
-            status: "LOCKED",
-            statusType: "danger"
-        })
-        addGuardian(recoverUserAddress, {
-            image: contacts2,
-            name: 'Samuel',
-            address: '0x17F6AD8Ef982297579C203069C1DbfFE4348c372',
-            status: "UNLOCKED",
-            statusType: "success"
-        })
-        addGuardian(recoverUserAddress, {
-            image: contacts3,
-            name: 'Olivia',
-            address: '0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c',
-            status: "UNLOCKED",
-            statusType: "success"
-        })
-        addGuardian(recoverUserAddress, {
-            image: contacts4,
-            name: 'Martha',
-            address: '0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB',
-            status: "LOCKED",
-            statusType: "danger"
-        })
-        addGuardian(recoverUserAddress, {
-            image: notKnow,
-            name: 'David',
-            address: '0xdD870fA1b7C4700F2BD7f44238821C26f7392148',
-            status: "LOCKED",
-            statusType: "danger"
-        })
-    }
-
-   const revoke = (guardianAddress) =>{
-        revokeGuardian(recoverUserAddress, guardianAddress);
-        setGuardians(getGuardians(recoverUserAddress));
-    }
 
 
 
 
     const addGuardianOnStorage = (e) =>{
-        addGuardian(recoverUserAddress, {
-            image: notKnow,
-            name: name,
-            address: address,
-            status: "PENDING",
-            statusType: "danger"
-        })
+        addGuardian(name,address);
         setShowAddGuardan(false);
-        setGuardians( getGuardians(recoverUserAddress));
 
     }
 
     const getUnconfirmedGuardians=()=> {
-        return guardians.filter(g => g.status == "PENDING").length;
+        console.log(guardians);
+        return guardians.filter(g => g.guardianStatus == "0").length;
     }
 
 
     const getUnlockedGuardiansCount = () =>{
-        return guardians.filter(g => g.status == "UNLOCK").length;
+        console.log(guardians);
+        return guardians.filter(g => g.guardianStatus == "3").length;
     }
 
     const getAccountStatusFromContract = () => {
         return getAccountStatus(recoverUserAddress);
     }
 
-    const unlockAccount = ()=>{
-        var shares = getSecrets(recoverUserAddress);
 
+
+    const unlockAccount = ()=>{
+        var shares =    guardians.filter(g => g.guardianStatus == "3").map(g=>g.unlockedSecret);
+console.log(shares);
         var secret = combineShares(shares);
 ;
 
@@ -189,13 +185,10 @@ function SocialRecovery() {
     }
     const protectMyAccount = ()=> {
         var secret = word1 + "-" + word2 + "-" + word3 + "-" + word4 + "-" + word5 + "-" + word6 + "-" + word7 + "-" + word8 + "-" + word9 + "-" + word10 + "-" + word11 + "-" + word12;
+        var threshold = Math.floor(guardians.length/2)+1;
+        var shares = generateShares(secret, guardians.length, threshold);
 
-        var shares = generateShares(secret, guardians.length);
-
-        secureSecret(recoverUserAddress, shares);
-        setShowProtectAccount(false);
-        setGuardians(getGuardians(recoverUserAddress));
-
+        secureSecret(shares, threshold);
     }
 
     const secureMessages =() =>{
@@ -269,7 +262,7 @@ function SocialRecovery() {
                         variant="info"
                         className="alert alert-warning notification"
                     >
-                            <p className="notificaiton-title mb-2">This account <b>{connectedUserAddress}</b> is on recovery for account <b>{recoverUserAddress}</b> </p>
+                            <p className="notificaiton-title mb-2">This account <b>{accounts[0]}</b> is on recovery for account <b>{user.userAddress}</b> </p>
 
 
                     </Alert>
@@ -290,7 +283,7 @@ function SocialRecovery() {
                         className="alert alert-warning notification"
                     >
 
-                        {guardians.length < 3 && <div>
+                            {guardians.length < 3 && <div>
                             <p className="notificaiton-title mb-2"><strong>Warning</strong>, your account is not
                                 yet protected by enough guardians</p>
                             <p> You need at least 3 guardians (<b>{3 - guardians.length} missings</b>) </p>
@@ -303,7 +296,7 @@ function SocialRecovery() {
                         </div>
                         }
 
-                        {guardians.length >= 3 && getUnconfirmedGuardians() > 0 && <div>
+                        {getUnconfirmedGuardians() > 0 && <div>
                             <p className="notificaiton-title mb-2"><strong>Warning</strong>, your account is not
                                 yet protected by your guardians</p>
                             <p>
@@ -320,12 +313,7 @@ function SocialRecovery() {
 
                                 </Alert>
                             </p>
-                            <p>
-                                <Button className="mr-2" variant="info"
-                                        onClick={() => setShowAddGuardan(true)}>
-                                    Add a new guardian
-                                </Button>
-                            </p>
+
                         </div>}
 
                         {guardians.length >= 3 && getUnconfirmedGuardians() == 0 &&
@@ -346,6 +334,7 @@ function SocialRecovery() {
                                 </Button>
                             </div>
                         }
+
                     </Alert>
 
                 </Col>
@@ -368,29 +357,34 @@ function SocialRecovery() {
         if(!guardians){
             return (<div>Loading...</div>);
         }
-
+        
         return (
 
             <div>
                 {
-                    recoverUserAddress && connectedUserAddress && recoverUserAddress != connectedUserAddress && accountRecoveryMessage()
+                    accounts[0] && user!=null && user.userAddress!=O_ADDRESS && user.userAddress != accounts[0] && accountRecoveryMessage()
                 }
                 {
-                    recoverUserAddress == connectedUserAddress && <div>Social recovery for account {recoverUserAddress}</div>
+                    (user==null || user.userAddress==O_ADDRESS || user.userAddress == accounts[0]) && <div>Social recovery for account {accounts[0]}</div>
                 }
-                {getAccountStatusFromContract() == 'INIT' && alertMessages()}
-                {getAccountStatusFromContract() == 'LOCKED' && secureMessages()}
-                {getAccountStatusFromContract() == 'PENDING_UNLOCK' && unlockMessages()}
+                {(user == null || user.userAddress==O_ADDRESS || user.accountStatus == "0") && alertMessages()}
+                {(user != null && user.userAddress!=O_ADDRESS && user.accountStatus == "1" && user.userAddress == accounts[0]) && secureMessages()}
+                {(user != null && user.userAddress!=O_ADDRESS && user.userAddress != accounts[0]) && unlockMessages()}
 
                 <div className="row">
                     {
                         guardians && guardians.map(guardian => {
-                            return <Guardian revoke={() => revoke(guardian.address)} showRevoke={getAccountStatusFromContract()=='INIT'}guardian={guardian}></Guardian>
+                            return <Guardian revoke={() => revokeGuardian(guardian.guardianAddress)} showRevoke={getAccountStatusFromContract()=='INIT'}guardian={guardian}></Guardian>
                         })
+
                     }
+                    {
+                        pendingAddGuardian && <Guardian revoke={() => {}} showRevoke={true} shadowGuardian={true} guardian={pendingAddGuardian}></Guardian>
+                    }
+
                 </div>
 
-                <Modal className="modal fade" show={showAddGuardan} onHide={(c) => console.log(c)} centered>
+                <Modal className="modal fade" show={showAddGuardan} centered>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Send Message</h5>
@@ -436,7 +430,7 @@ function SocialRecovery() {
                     </div>
                 </Modal>
 
-                <Modal className="modal fade" show={showProtectAccount} onHide={(c) => console.log(c)}
+                <Modal className="modal fade" show={showProtectAccount}
                        centered>
                     <div className="modal-content">
                         <div className="modal-header">
@@ -547,13 +541,22 @@ function SocialRecovery() {
                                 </div>
 
 <br/>
-                                {type == 'protect' && <Button className="mr-2" variant="success" onClick={protectMyAccount}>
+                                {type == 'protect' && !pendingSecure &&  <Button className="mr-2" variant="success" onClick={protectMyAccount}>
                                     Protect my account
                                 </Button>}
+                                {type == 'protect' && pendingSecure &&  <Button className="mr-2" variant="success" onClick={protectMyAccount}>
+                                    <i className="fa fa-spinner fa-spin text-info"/>{" "}
+                                </Button>}
+
                             </form>
                         </div>
                     </div>
                 </Modal>
+
+                <Button className="mr-2" variant="danger"
+                        onClick={reset}>
+                    Reset my social recovery
+                </Button>
             </div>
         );
 }

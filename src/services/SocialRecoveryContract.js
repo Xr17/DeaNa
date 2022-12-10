@@ -14,7 +14,7 @@ export function addGuardian(userAddress, guardian) {
         guardians = JSON.parse("{}");
     } else guardians = JSON.parse(guardians);
 
-    console.log(guardians);
+
     guardians[guardian.address] = userAddress;
 
 
@@ -35,7 +35,6 @@ export function getOrDefault(userAddress) {
 }
 
 export function getAccountStatus(userAddress) {
-    console.log(userAddress);
     var user = getOrDefault(userAddress);
 
     return user.accountStatus;
@@ -50,7 +49,7 @@ export function secureSecret(userAddress, shares) {
     if (user.guardians == null) {
         user.guardians = [];
     }
-    console.log(user.guardians);
+
     for (var i in user.guardians) {
 
         user.guardians[i].secret = shares[i];
@@ -75,7 +74,7 @@ export function getSecrets(userAddress) {
         user.guardians = [];
     }
     var secrets = [];
-    console.log(user.guardians);
+
     for (var i in user.guardians) {
         if (user.guardians[i].status == "UNLOCK") {
             secrets.push(user.guardians[i].unlockedSecret);
@@ -101,7 +100,7 @@ export function confirmGuardian(userAddress, guardianAddress) {
             guardians[g].status = "CONFIRMED";
         }
     }
-    console.log(user);
+
     localStorage.setItem(userAddress, JSON.stringify(user));
     return guardians;
 }
@@ -126,7 +125,7 @@ export function unlockGuardian(userNewAddress, guardianAddress) {
     var userAddress = guardians[guardianAddress];
 
     var user = getOrDefault(userAddress);
-    console.log("la");
+
     for (var g in user.guardians) {
         if (user.guardians[g].address == guardianAddress) {
             user.guardians[g].status = "UNLOCK";
@@ -150,7 +149,7 @@ export function unlockGuardian(userNewAddress, guardianAddress) {
 }
 
 export function getGuardians(userAddress) {
-    console.log(userAddress);
+
     var user = localStorage.getItem(userAddress);
 
     if (user != null) {
@@ -179,6 +178,6 @@ export function revokeGuardian(userAddress, guardianAddress) {
         }
     }
 
-    console.log("revoked");
+
     localStorage.setItem(userAddress, JSON.stringify(user));
 }
