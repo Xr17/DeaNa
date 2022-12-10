@@ -3,6 +3,7 @@ import {Badge, Dropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import profile from "../../../images/profile/port.jpg";
 import PieChart from "../zenix/MyWallets/CoinChart";
+import notKnow from "../../../images/contacts/no-known.png";
 
 class Guardian extends React.Component {
     constructor(props) {
@@ -11,21 +12,40 @@ class Guardian extends React.Component {
 
     getVariant(status){
         switch(status){
-            case "LOCKED":
+            case "2":
                 return "danger"
-            case "CONFIRMED":
+            case "1":
                 return "info"
-            case "PENDING":
+            case "0":
                 return "warning";
-            case "UNLOCK":
+            case "3":
                 return "success";
+            case "-1":
+                return "default";
+            default:
+                return "default";
+        }
+    }
+
+    getStatusLabel(status){
+        switch(status){
+            case "2":
+                return "LOCKED"
+            case "1":
+                return "CONFIRMED"
+            case "0":
+                return "PENDING";
+            case "3":
+                return "UNLOCKED";
+            case "-1":
+                return "CREATION"
             default:
                 return "default";
         }
     }
     render() {
         return (
-            <div className="col-xl-3 col-xxl-4">
+            <div className="col-xl-3 col-xxl-4" style={{opacity:this.props.shadowGuardian?0.2:1}}>
                 <div className="row">
                     <div className="col-xl-12 col-lg-6 col-sm-6">
                         <div className="card">
@@ -47,18 +67,18 @@ class Guardian extends React.Component {
                             <div className="card-body">
                                 <div className="text-center">
                                     <div className="my-profile">
-                                        <img src={this.props.guardian.image} alt="" className="rounded"/>
+                                        <img src={notKnow} alt="" className="rounded"/>
 
                                     </div>
                                     <h4 className="mt-3 font-w600 text-black mb-0 name-text">{this.props.guardian.name}</h4>
-                                    <small>{this.props.guardian.address}</small>
+                                    <small>{this.props.guardian.guardianAddress}</small>
                                     <br/>
-                                    <Badge variant={this.getVariant(this.props.guardian.status)}>{this.props.guardian.status}</Badge>
+                                    <Badge variant={this.getVariant(this.props.guardian.guardianStatus)}>{this.getStatusLabel(this.props.guardian.guardianStatus)}</Badge>
 
 
                                 </div>
                                <ul className="portofolio-social">
-                                    {this.props.guardian.status == "LOCKED" && false && <li ><Link to={"#"}><i className="fa fa-unlock"> </i> Ask for unlock</Link></li>}
+                                    {this.props.guardian.guardianStatus == "0" && false && <li ><Link to={"#"}><i className="fa fa-unlock"> </i> Ask for unlock</Link></li>}
 
                                 </ul>
                             </div>
