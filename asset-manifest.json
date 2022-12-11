@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/deana/static/css/main.71d7524d.css",
-    "main.js": "/deana/static/js/main.e7e8cb5f.js",
+    "main.js": "/deana/static/js/main.0d59d0ff.js",
     "static/js/827.d98b2f12.chunk.js": "/deana/static/js/827.d98b2f12.chunk.js",
     "static/js/978.dabc7e20.chunk.js": "/deana/static/js/978.dabc7e20.chunk.js",
     "static/js/275.36a361a7.chunk.js": "/deana/static/js/275.36a361a7.chunk.js",
@@ -121,7 +121,7 @@
     "index.html": "/deana/index.html",
     "static/media/check.svg": "/deana/static/media/check.00b7ce7137636f3f980c.svg",
     "main.71d7524d.css.map": "/deana/static/css/main.71d7524d.css.map",
-    "main.e7e8cb5f.js.map": "/deana/static/js/main.e7e8cb5f.js.map",
+    "main.0d59d0ff.js.map": "/deana/static/js/main.0d59d0ff.js.map",
     "827.d98b2f12.chunk.js.map": "/deana/static/js/827.d98b2f12.chunk.js.map",
     "978.dabc7e20.chunk.js.map": "/deana/static/js/978.dabc7e20.chunk.js.map",
     "275.36a361a7.chunk.js.map": "/deana/static/js/275.36a361a7.chunk.js.map",
@@ -142,6 +142,6 @@
   },
   "entrypoints": [
     "static/css/main.71d7524d.css",
-    "static/js/main.e7e8cb5f.js"
+    "static/js/main.0d59d0ff.js"
   ]
 }
