@@ -33,11 +33,11 @@ function App (props) {
     let routes = (  
         <Switch>
             <EthProvider>
-            <Route path='/login' component={Login} />
-            <Route path='/page-register' component={SignUp} />
-            <Route path='/help' component={ForgotPassword} />
-            <Route path='/page-social-recovery-confirm' component={SocialRecoveryConfirm} />
-            <Route path='/page-social-recovery-unlock' component={SocialRecoveryUnlock} />
+            <Route path='/deana/login' component={Login} />
+            <Route path='/deana/page-register' component={SignUp} />
+            <Route path='/deana/help' component={ForgotPassword} />
+            <Route path='/deana/page-social-recovery-confirm' component={SocialRecoveryConfirm} />
+            <Route path='/deana/page-social-recovery-unlock' component={SocialRecoveryUnlock} />
             </EthProvider>
         </Switch>
     );

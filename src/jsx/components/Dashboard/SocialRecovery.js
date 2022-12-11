@@ -228,7 +228,7 @@ console.log(shares);
                                     className="solid alert-rounded"
                                 >
                                     <a target="_blank"
-                                       href={"http://localhost:3000/page-social-recovery-unlock?user=" + connectedUserAddress}>{"http://localhost:3000/page-social-recovery-unlock?user=" + connectedUserAddress}</a>
+                                       href={"https://xr17.github.io/deana/page-social-recovery-unlock?user=" + connectedUserAddress}>{"https://xr17.github.io/deana/page-social-recovery-unlock?user=" + connectedUserAddress}</a>
 
                                 </Alert>
                             </p>
@@ -309,10 +309,14 @@ console.log(shares);
                                     className="solid alert-rounded"
                                 >
                                     <a target="_blank"
-                                       href="http://localhost:3000/page-social-recovery-confirm">http://localhost:3000/page-social-recovery-confirm</a>
+                                       href="https://xr17.github.io/deana/page-social-recovery-confirm">https://xr17.github.io/deana/page-social-recovery-confirm</a>
 
                                 </Alert>
                             </p>
+                            {guardians.length < 5 &&                                  <Button className="mr-2" variant="info"
+                                                                                              onClick={() => setShowAddGuardan(true)}>
+                                Add a new guardian
+                            </Button>}
 
                         </div>}
 
