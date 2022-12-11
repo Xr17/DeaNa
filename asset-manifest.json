@@ -1,10 +1,9 @@
 {
   "files": {
-    "main.css": "/deana/static/css/main.62c88d36.css",
-    "main.js": "/deana/static/js/main.bbcfb312.js",
+    "main.css": "/deana/static/css/main.71d7524d.css",
+    "main.js": "/deana/static/js/main.505d187a.js",
     "static/js/827.d98b2f12.chunk.js": "/deana/static/js/827.d98b2f12.chunk.js",
     "static/js/978.dabc7e20.chunk.js": "/deana/static/js/978.dabc7e20.chunk.js",
-    "static/js/110.548ac0f2.chunk.js": "/deana/static/js/110.548ac0f2.chunk.js",
     "static/js/275.36a361a7.chunk.js": "/deana/static/js/275.36a361a7.chunk.js",
     "static/js/542.4a3ecc57.chunk.js": "/deana/static/js/542.4a3ecc57.chunk.js",
     "static/js/920.1caf7591.chunk.js": "/deana/static/js/920.1caf7591.chunk.js",
@@ -20,7 +19,6 @@
     "static/js/402.7f009b55.chunk.js": "/deana/static/js/402.7f009b55.chunk.js",
     "static/js/968.0eff3204.chunk.js": "/deana/static/js/968.0eff3204.chunk.js",
     "static/js/787.929557b8.chunk.js": "/deana/static/js/787.929557b8.chunk.js",
-    "static/js/496.6d8533ac.chunk.js": "/deana/static/js/496.6d8533ac.chunk.js",
     "static/media/materialdesignicons-webfont.svg?v=2.4.85": "/deana/static/media/materialdesignicons-webfont.6285372902a5d4634762.svg",
     "static/media/la-brands-400.svg": "/deana/static/media/la-brands-400.928495fae14841a0d610.svg",
     "static/media/la-solid-900.svg": "/deana/static/media/la-solid-900.a813034654b4ff0a0bac.svg",
@@ -82,7 +80,6 @@
     "static/media/img6.jpg": "/deana/static/media/img6.953064ea8d32fb10f4d3.jpg",
     "static/media/Simple-Line-Icons4c82.eot?-i3a2kk": "/deana/static/media/Simple-Line-Icons4c82.cb4840b543cf18677ced.eot",
     "static/media/Simple-Line-Iconsd41d.eot": "/deana/static/media/Simple-Line-Iconsd41d.cb4840b543cf18677ced.eot",
-    "static/media/brand-logo.png": "/deana/static/media/brand-logo.1be8ab995127df838b48.png",
     "static/media/Simple-Line-Icons4c82.woff?-i3a2kk": "/deana/static/media/Simple-Line-Icons4c82.1334d7641f5b94d8d01d.woff",
     "static/media/Simple-Line-Icons4c82.ttf?-i3a2kk": "/deana/static/media/Simple-Line-Icons4c82.7f0913d4da1704f5de7f.ttf",
     "static/media/Flaticon.woff": "/deana/static/media/Flaticon.ca86721fde1c0713ea4d.woff",
@@ -93,7 +90,6 @@
     "static/media/2.jpg": "/deana/static/media/2.1db987673ced473a4938.jpg",
     "static/media/img1.jpg": "/deana/static/media/img1.00d753c94090adad493d.jpg",
     "static/media/1.png": "/deana/static/media/1.cdc817bdd4f653fa5763.png",
-    "static/media/logo.png": "/deana/static/media/logo.50fd12c9a79c34c52527.png",
     "static/media/la-regular-400.eot": "/deana/static/media/la-regular-400.77111476f05dd3443047.eot",
     "static/media/la-regular-400.ttf": "/deana/static/media/la-regular-400.cf246e21218cab398b3d.ttf",
     "static/media/3.png": "/deana/static/media/3.d0ef62af4432babd492e.png",
@@ -102,6 +98,7 @@
     "static/media/avasta.eot": "/deana/static/media/avasta.568a19c253fb383257be.eot",
     "static/media/avasta.ttf": "/deana/static/media/avasta.d9a081013ad1508ed10e.ttf",
     "static/media/Flaticon_1.woff": "/deana/static/media/Flaticon_1.08974d779ab6cc54116c.woff",
+    "static/media/brand-logo.png": "/deana/static/media/brand-logo.2c818fc0bab100b6420a.png",
     "static/media/profile.png": "/deana/static/media/profile.0a3dd7b30f99e421a90f.png",
     "static/media/5.jpg": "/deana/static/media/5.7ece25cf450f7151f60b.jpg",
     "static/media/7.jpg": "/deana/static/media/7.dcd87132001f03dcb7b0.jpg",
@@ -123,11 +120,10 @@
     "static/media/lit3.svg": "/deana/static/media/lit3.69b9f378f4bbe455e72788048d4e620d.svg",
     "index.html": "/deana/index.html",
     "static/media/check.svg": "/deana/static/media/check.00b7ce7137636f3f980c.svg",
-    "main.62c88d36.css.map": "/deana/static/css/main.62c88d36.css.map",
-    "main.bbcfb312.js.map": "/deana/static/js/main.bbcfb312.js.map",
+    "main.71d7524d.css.map": "/deana/static/css/main.71d7524d.css.map",
+    "main.505d187a.js.map": "/deana/static/js/main.505d187a.js.map",
     "827.d98b2f12.chunk.js.map": "/deana/static/js/827.d98b2f12.chunk.js.map",
     "978.dabc7e20.chunk.js.map": "/deana/static/js/978.dabc7e20.chunk.js.map",
-    "110.548ac0f2.chunk.js.map": "/deana/static/js/110.548ac0f2.chunk.js.map",
     "275.36a361a7.chunk.js.map": "/deana/static/js/275.36a361a7.chunk.js.map",
     "542.4a3ecc57.chunk.js.map": "/deana/static/js/542.4a3ecc57.chunk.js.map",
     "920.1caf7591.chunk.js.map": "/deana/static/js/920.1caf7591.chunk.js.map",
@@ -142,11 +138,10 @@
     "209.032be566.chunk.js.map": "/deana/static/js/209.032be566.chunk.js.map",
     "402.7f009b55.chunk.js.map": "/deana/static/js/402.7f009b55.chunk.js.map",
     "968.0eff3204.chunk.js.map": "/deana/static/js/968.0eff3204.chunk.js.map",
-    "787.929557b8.chunk.js.map": "/deana/static/js/787.929557b8.chunk.js.map",
-    "496.6d8533ac.chunk.js.map": "/deana/static/js/496.6d8533ac.chunk.js.map"
+    "787.929557b8.chunk.js.map": "/deana/static/js/787.929557b8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.62c88d36.css",
-    "static/js/main.bbcfb312.js"
+    "static/css/main.71d7524d.css",
+    "static/js/main.505d187a.js"
   ]
 }
